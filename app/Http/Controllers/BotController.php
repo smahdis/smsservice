@@ -96,6 +96,26 @@ class BotController extends Controller
             ])
         );
 
+
+        $factory = (new Factory);
+        $messaging = $factory->createMessaging();
+        $message = CloudMessage::withTarget('topic','user_1')
+            ->withNotification(Notification::create('Title', 'Body'))
+            ->withData(['key' => 'value']);
+
+        try {
+            $messaging->send($message);
+        } catch (MessagingException $e1) {
+            Log::info(json_encode([
+                "error MessagingException" => $e1
+            ]));
+        } catch (FirebaseException $e2) {
+            Log::info(json_encode([
+                "error FirebaseException" => $e2
+            ]));
+        }
+
+
         if(empty($user)){
 
             Log::info(
@@ -116,18 +136,7 @@ class BotController extends Controller
         }
 
         Auth::loginUsingId($user->id);
-        try {
-            $factory = (new Factory);
-            $messaging = $factory->createMessaging();
-            $message = CloudMessage::withTarget('topic','user_1')
-                ->withNotification(Notification::create('Title', 'Body'))
-                ->withData(['key' => 'value']);
-                $messaging->send($message);
-        } catch (MessagingException|FirebaseException $e) {
-            Log::info(json_encode([
-                "error" => $e
-            ]));
-        }
+
 
         $t = Telegram::bot($bot_name);
 //
