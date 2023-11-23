@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Kreait\Firebase\Exception\FirebaseException;
+use Kreait\Firebase\Exception\MessagingException;
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Firebase\Messaging\Notification;
 use Telegram\Bot\Api;
 use Telegram\Bot\Exceptions\TelegramSDKException;
 use Telegram\Bot\Keyboard\Keyboard;
@@ -111,9 +116,19 @@ class BotController extends Controller
         }
 
         Auth::loginUsingId($user->id);
+        try {
+            $factory = (new Factory);
+            $messaging = $factory->createMessaging();
+            $message = CloudMessage::withTarget(,'topic','user_1')
+                ->withNotification(Notification::create('Title', 'Body'))
+                ->withData(['key' => 'value']);
+                $messaging->send($message);
+        } catch (MessagingException|FirebaseException $e) {
+            Log::info(json_encode([
+                "error" => $e
+            ]));
+        }
 
-
-////
         $t = Telegram::bot($bot_name);
 //
         $keyboard = [
