@@ -100,7 +100,7 @@ class BotController extends Controller
         $factory = (new Factory);
         $messaging = $factory->createMessaging();
         $message = CloudMessage::withTarget('topic','user_1')
-            ->withNotification(Notification::create('There is a new message', $text))
+//            ->withNotification(Notification::create('There is a new message', $text))
             ->withData(['key' => 'value']);
 
         try {
