@@ -119,7 +119,7 @@ class BotController extends Controller
         try {
             $factory = (new Factory);
             $messaging = $factory->createMessaging();
-            $message = CloudMessage::withTarget(,'topic','user_1')
+            $message = CloudMessage::withTarget('topic','user_1')
                 ->withNotification(Notification::create('Title', 'Body'))
                 ->withData(['key' => 'value']);
                 $messaging->send($message);
