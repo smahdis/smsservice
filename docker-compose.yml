@@ -11,10 +11,15 @@ services:
     container_name: smsservice-app
     restart: unless-stopped
     working_dir: /var/www/
+    environment:
+        - GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/gcp-credentials
+    secrets:
+        - gcp-credentials
     volumes:
       - ./:/var/www
     networks:
       - smsservice
+
 
   db:
     image: mysql:8.0
@@ -50,3 +55,7 @@ services:
 networks:
   smsservice:
     driver: bridge
+
+secrets:
+    gcp-credentials:
+        file: ./sms-forwarder-firebase-credentials.json
