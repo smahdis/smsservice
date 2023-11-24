@@ -68,7 +68,8 @@ class BotController extends Controller
     /**
      * @throws TelegramSDKException
      */
-    public function handleReplyMessage($request, $params, $bot_name, $update) {
+    public function handleReplyMessage($request, $params, $bot_name, $update): void
+    {
         Log::info(
             json_encode([
                 "update" => $update,
@@ -99,7 +100,7 @@ class BotController extends Controller
 
         if($update->isType('callback_query')) {
 
-            $json = json_decode($update->callbackQuery->data);
+            $json = json_decode($update->callbackQuery->data, true);
 
             $this->handleReplyMessage($request, $json, $bot_name, $update);
 
