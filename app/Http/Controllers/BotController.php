@@ -148,9 +148,15 @@ class BotController extends Controller
 
             $params = json_decode($update->callbackQuery->data, true);
             $type = $params['type'];
-            if($type == "reply_start") {
+            if($type === "reply_start") {
                 session('step', 1);
                 session(['state' => 'reply', "params" => $params]);
+
+                Log::info(
+                    json_encode([
+                        "setting" => "done!!!"
+                    ])
+                );
             }
 
             Log::info(
