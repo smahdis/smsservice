@@ -140,7 +140,10 @@ class BotController extends Controller
 گیرنده:
 ' .$params['from'] . '
 متن پیام:
-' . $params['text'],
+
+' . $params['text'] . '
+
+',
                     'reply_markup' => $reply_markup,
                     'reply_to_message_id' => $reply_to_message_id
                 ]);
