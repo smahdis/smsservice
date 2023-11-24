@@ -201,8 +201,7 @@ class BotController extends Controller
 گیرنده:
 ' . $params['from'] . '
 متن پیام:
-                     ' . '
-
+' . '
 ' . $params['text'] . '
 
 .',
