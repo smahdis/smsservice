@@ -193,25 +193,25 @@ class BotController extends Controller
 //                ]);
 
                 $reply_markup = Keyboard::remove();
-                $response = Telegram::bot($bot_name)->editMessageText([
-                    'chat_id' => $chat_id,
-                    'text' => '
-گیرنده:
-' . $params['from'] . '
-متن پیام:
-' . '
-' . $params['text'] . '
-
-.',
-//                    'reply_to_message_id' => $reply_to_message_id,
-                    'message_id'    =>  $msg_id,
-                    'remove_keyboard' => true
-                ]);
+//                $response = Telegram::bot($bot_name)->editMessageText([
+//                    'chat_id' => $chat_id,
+//                    'text' => '
+//گیرنده:
+//' . $params['from'] . '
+//متن پیام:
+//' . '
+//' . $params['text'] . '
+//
+//.',
+////                    'reply_to_message_id' => $reply_to_message_id,
+//                    'message_id'    =>  $msg_id,
+//                    'remove_keyboard' => true
+//                ]);
 
 
                 Telegram::bot($bot_name)->sendMessage([
                     'chat_id' => $chat_id,
-                    'text' => "message sent",
+                    'text' => "پیام فوق ارسال شد",
                     'reply_markup'=> $reply_markup,
                 ]);
 
@@ -300,62 +300,62 @@ class BotController extends Controller
             ])
         );
 
-
-
-        if(empty($user)){
-
-            Log::info(
-                json_encode([
-                    "user" => "not found for " . $chat_id,
-                    "request" => $request->all(),
-                    "bot_name" => $bot_name
-                ])
-            );
-
-            $response = Telegram::bot($bot_name)->sendMessage([
-                'chat_id' => $chat_id,
-                'text' => "You haven't an active subscription " . $text . " " . $bot_name,
-            ]);
-
-            return response([], 400);
-
-        }
-
-        Auth::loginUsingId($user->id);
-
-
-        $t = Telegram::bot($bot_name);
-//
-        $keyboard = [
-            ['Send Message'],
-//            ['4', '5', '6'],
-//            ['1', '2', '3'],
-//            ['0']
-        ];
-//
-        $reply_markup = Keyboard::make([
-            'keyboard' => $keyboard,
-            'resize_keyboard' => true,
-            'one_time_keyboard' => true
-        ]);
 //
 //
-        $response = Telegram::bot($bot_name)->sendMessage([
-            'chat_id' => Auth::user()->chat_id,
-            'text' => $t->getAccessToken() . " - ". $text . " " . $bot_name,
-            'reply_markup' => $reply_markup
-        ]);
-
-        Log::info(
-            json_encode([
-                "status" => "received",
-                "request" => $request->all(),
-//                    "commands" => $commands
-            ])
-        );
-
-        var_dump($request->all());
-        die;
+//        if(empty($user)){
+//
+//            Log::info(
+//                json_encode([
+//                    "user" => "not found for " . $chat_id,
+//                    "request" => $request->all(),
+//                    "bot_name" => $bot_name
+//                ])
+//            );
+//
+//            $response = Telegram::bot($bot_name)->sendMessage([
+//                'chat_id' => $chat_id,
+//                'text' => "You haven't an active subscription " . $text . " " . $bot_name,
+//            ]);
+//
+//            return response([], 400);
+//
+//        }
+//
+//        Auth::loginUsingId($user->id);
+//
+//
+//        $t = Telegram::bot($bot_name);
+////
+//        $keyboard = [
+//            ['Send Message'],
+////            ['4', '5', '6'],
+////            ['1', '2', '3'],
+////            ['0']
+//        ];
+////
+//        $reply_markup = Keyboard::make([
+//            'keyboard' => $keyboard,
+//            'resize_keyboard' => true,
+//            'one_time_keyboard' => true
+//        ]);
+////
+////
+//        $response = Telegram::bot($bot_name)->sendMessage([
+//            'chat_id' => Auth::user()->chat_id,
+//            'text' => $t->getAccessToken() . " - ". $text . " " . $bot_name,
+//            'reply_markup' => $reply_markup
+//        ]);
+//
+//        Log::info(
+//            json_encode([
+//                "status" => "received",
+//                "request" => $request->all(),
+////                    "commands" => $commands
+//            ])
+//        );
+//
+//        var_dump($request->all());
+//        die;
 //        return null;
     }
 
