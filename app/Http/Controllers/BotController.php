@@ -72,14 +72,19 @@ class BotController extends Controller
     {
         $update = Telegram::bot($bot_name)->commandsHandler(true);
 
-        if($update->isType('callback_query') && $update->callbackQuery->data === 'callback_data_value') {
+        if($update->isType('callback_query')) {
+
+            $json = json_decode($update->callbackQuery->data);
+
             Log::info(
                 json_encode([
                     "update" => $update,
-                    "request" => $request->all(),
+                    "json" => $json,
                     "bot_name" => $bot_name
                 ])
             );
+
+            return 0;
         }
 
         $chat_id = $request->all()['message']['chat']['id'];
@@ -202,8 +207,11 @@ class BotController extends Controller
         $reply_markup = Keyboard::make()
             ->inline()
             ->row([
-                Keyboard::inlineButton(['text' => 'Reply', 'url' => 'https://google.com']),
-                Keyboard::inlineButton(['text' => 'Reply To message', 'callback_data' => 'callback_data_value'])
+                Keyboard::inlineButton(['text' => 'Reply', 'callback_data' => json_encode([
+                    "type" => "reply",
+                    "step" => "1",
+                    "from" => $from,
+                ])])
             ]);
 
         $response = Telegram::bot('user_' . $request->user()->id)->sendMessage([
