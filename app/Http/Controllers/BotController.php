@@ -216,11 +216,11 @@ class BotController extends Controller
             if($type === "reply_start") {
                 Log::info(
                     json_encode([
-                        "reply_to_message_id" => $update->callbackQuery->message
+                        "reply_to_message_id" => $update->callbackQuery->message->message_id
                     ])
                 );
 
-                session(['step' => 1, 'reply_to_message_id' => $update->callbackQuery->message->id]);
+                session(['step' => 1, 'reply_to_message_id' => $update->callbackQuery->message->message_id]);
                 $request->session()->put('state', 'reply');
                 session(['state' => 'reply', "params" => $params]);
             }
