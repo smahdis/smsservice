@@ -87,12 +87,9 @@ class BotController extends Controller
 //            'one_time_keyboard' => true
 //        ]);
 
+
         // Normal message:
-        Telegram::bot($bot_name)->sendMessage([
-            'chat_id' => $update->callbackQuery->message->chat->id,
-            'text'    => 'What help you need?',
-//            'reply_markup' => $reply_markup
-        ]);
+
 
 
 //        Telegram::bot($bot_name)->answerCallbackQuery([
@@ -105,7 +102,18 @@ class BotController extends Controller
 
         switch ($params['step']) {
             case 1:
-
+                session(['state' => 'reply', "step" => 2, "params" => $params]);
+                $keyboard = [['لغو']];
+                $reply_markup = Keyboard::make([
+                    'keyboard' => $keyboard,
+                    'resize_keyboard' => true,
+                    'one_time_keyboard' => true
+                ]);
+                Telegram::bot($bot_name)->sendMessage([
+                    'chat_id' => $update->callbackQuery->message->chat->id,
+                    'text'    => 'لطفا پیام خود را بنویسید',
+                    'reply_markup' => $reply_markup
+                ]);
                 break;
             case 2:
                 break;
@@ -222,16 +230,19 @@ class BotController extends Controller
 
         Log::info(
             json_encode([
-                    "status" => "received",
-                    "request" => $request->all(),
+                "status" => "received",
+                "request" => $request->all(),
 //                    "commands" => $commands
-                ])
+            ])
         );
 
         var_dump($request->all());
         die;
 //        return null;
     }
+
+
+
 
     /**
      * @throws TelegramSDKException
@@ -243,9 +254,6 @@ class BotController extends Controller
 
         $keyboard = [
             ['Reply'],
-//            ['4', '5', '6'],
-//            ['1', '2', '3'],
-//            ['0']
         ];
 //
         $reply_markup = Keyboard::make()
@@ -265,7 +273,7 @@ class BotController extends Controller
 ' . $msg
         ]);
 
-       Telegram::bot('user_' . $request->user()->id)->setWebhook([
+        Telegram::bot('user_' . $request->user()->id)->setWebhook([
             'url' => env('TELEGRAM_WEBHOOK_URL', 'https://sms.tikoagency.ir/callback') . '/user_' . $request->user()->id,
         ]);
 
