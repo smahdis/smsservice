@@ -216,7 +216,7 @@ class BotController extends Controller
             if($type === "reply_start") {
                 Log::info(
                     json_encode([
-                        "reply_to_message_id" => $update->callbackQuery->message->id
+                        "reply_to_message_id" => $update->callbackQuery->message
                     ])
                 );
 
