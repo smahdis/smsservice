@@ -32,7 +32,7 @@ class StartTelegramSession extends StartSession
         $sessionName = null;
         if ($update instanceof Update) {
             if ($update->getMessage()) {
-                $sessionName = $update->getMessage()->getFrom()->getId();
+                $sessionName = $update->getFrom()->getId();
                 Log::info(
                     json_encode([
                         "update" => $update,
