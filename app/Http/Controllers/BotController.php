@@ -176,7 +176,11 @@ class BotController extends Controller
 
                 $msg_id = session('message_id');
 
-                Telegram::editMessageText([
+                Log::info(json_encode([
+                    "msg_id" => $msg_id
+                ]));
+
+                Telegram::bot($bot_name)->editMessageText([
                     'chat_id'   => $chat_id,
                     'message_id'    =>  $msg_id,
                     'text'  =>  "پیام ارسال شد.",
