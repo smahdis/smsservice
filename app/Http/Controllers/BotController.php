@@ -121,12 +121,16 @@ class BotController extends Controller
                 session(['step' => 3]);
 //                session(['state' => 'reply', "step" => 3, "params" => $params]);
                 $params = session('params');
-                $keyboard = [['ارسال']];
-                $reply_markup = Keyboard::make([
-                    'keyboard' => $keyboard,
-                    'resize_keyboard' => true,
-                    'one_time_keyboard' => true
-                ]);
+                $reply_markup = Keyboard::make()
+                    ->inline()
+                    ->row([
+                        Keyboard::inlineButton(['text' => 'ارسال', 'callback_data' => json_encode([
+                            "type" => "reply_send",
+//                    "step" => "1",
+                            "from" => $params['from'],
+                            "text" => $params['text'],
+                        ])])
+                    ]);
                 Telegram::bot($bot_name)->sendMessage([
                     'chat_id' => $chat_id,
                     'text' => $params['from'] . '
@@ -134,6 +138,15 @@ class BotController extends Controller
                     'reply_markup' => $reply_markup
                 ]);
                 break;
+
+            case 3:
+                Telegram::bot($bot_name)->sendMessage([
+                    'chat_id' => $chat_id,
+                    'text' => "message sent"
+                ]);
+
+                break;
+
             default:
 
         }
@@ -303,7 +316,7 @@ class BotController extends Controller
         $reply_markup = Keyboard::make()
             ->inline()
             ->row([
-                Keyboard::inlineButton(['text' => 'Reply', 'callback_data' => json_encode([
+                Keyboard::inlineButton(['text' => 'پاسخ', 'callback_data' => json_encode([
                     "type" => "reply_start",
 //                    "step" => "1",
                     "from" => $from,
