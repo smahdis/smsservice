@@ -278,6 +278,10 @@ class BotController extends Controller
                     'chat_id' => $chat_id,
                     'message_id'  => $msg_id,
                 ]);
+                Telegram::bot($bot_name)->deleteMessage([
+                    'chat_id' => $chat_id,
+                    'message_id'  => $update->getMessage()->getMessageId(),
+                ]);
                 return 0;
             }
             $params = session('params');
