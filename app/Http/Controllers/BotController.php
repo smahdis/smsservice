@@ -72,7 +72,7 @@ class BotController extends Controller
     {
         Log::info(
             json_encode([
-//                "update" => $update,
+                "update" => $update,
                 "session" => session(),
                 "session id" => session()->getId(),
 //                "callback id" =>  $update->callbackQuery->id
