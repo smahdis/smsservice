@@ -20,7 +20,11 @@ return [
         ],
         'user_1' => [
             'token' => '6954372947:AAFfartlJtnTHZAMTc3sNtks6bpsOFqwuUU',
-            'webhook_url' => 'https://sms.tikoagency.ir/callback/user_1'
+            'webhook_url' => 'https://sms.tikoagency.ir/callback/user_1',
+            'commands' => [
+                'start' => 'App\\Http\\Controllers\\Commands\\StartCommand',
+                'test' => 'App\\Http\\Controllers\\Commands\\TestCommand'
+            ]
         ],
         'user_3' => [
             'token' => '181473118:AAEZG9OPPbdDC2MrHPYn8xXKPshEkHQssy0',
