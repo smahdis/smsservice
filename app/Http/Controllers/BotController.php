@@ -76,7 +76,8 @@ class BotController extends Controller
                 "callback id" =>  $update->callbackQuery->id
             ])
         );
-        switch ($params['step']) {
+
+        switch ($params->step) {
             case 1:
                 Telegram::bot($bot_name)->answerCallbackQuery([
                     'callback_query_id' => $update->callbackQuery->id,
