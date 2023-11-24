@@ -114,12 +114,14 @@ class BotController extends Controller
                     'resize_keyboard' => true,
                     'one_time_keyboard' => true
                 ]);
-                Telegram::bot($bot_name)->sendMessage([
+                $write_your_message_response = Telegram::bot($bot_name)->sendMessage([
                     'chat_id' => $chat_id,
                     'text'    => 'لطفا پیام خود را بنویسید',
                     'reply_markup' => $reply_markup,
                     'reply_to_message_id' => $reply_to_message_id
                 ]);
+
+                session(['write_your_message_id' => $write_your_message_response->getMessageId()]);
                 break;
             case 2:
                 session(['step' => 3]);
@@ -270,6 +272,13 @@ class BotController extends Controller
 //        );
 
         if(session('state') == "reply") {
+            if($text == "لغو"){
+                $msg_id = session('write_your_message_id');
+                Telegram::bot($bot_name)->deleteMessage([
+                    'chat_id' => $chat_id,
+                    'message_id'  => $msg_id,
+                ]);
+            }
             $params = session('params');
             $params["text"] = $text;
             session(['params'=> $params]);
