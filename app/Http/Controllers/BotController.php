@@ -132,12 +132,18 @@ class BotController extends Controller
                             "text" => $params['text'],
                         ])])
                     ]);
-                Telegram::bot($bot_name)->sendMessage([
+                $response = Telegram::bot($bot_name)->sendMessage([
                     'chat_id' => $chat_id,
                     'text' => $params['from'] . '
 ' . $params['text'],
                     'reply_markup' => $reply_markup
                 ]);
+
+                Log::info(json_encode([
+                    "ersal messsage respomse" => $response
+                ]));
+
+                session('message_id', $response->getMessageId());
                 break;
 
             case 3:
