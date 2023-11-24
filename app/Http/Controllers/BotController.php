@@ -282,6 +282,15 @@ class BotController extends Controller
                     'chat_id' => $chat_id,
                     'message_id'  => $update->getMessage()->getMessageId(),
                 ]);
+
+                session([
+                    "params" => "",
+                    "text" => "",
+                    "state" => "",
+                    "step" => "",
+                    "message_id" => "",
+                    "write_your_message_id" => "",
+                ]);
                 return 0;
             }
             $params = session('params');
