@@ -185,12 +185,12 @@ class BotController extends Controller
                     "msg_id" => $msg_id
                 ]));
 
-                Telegram::bot($bot_name)->editMessageText([
-                    'chat_id'   => $chat_id,
-                    'message_id'    =>  $msg_id,
-                    'text'  =>  "پیام ارسال شد.",
-                    'remove_keyboard' => true
-                ]);
+//                Telegram::bot($bot_name)->editMessageText([
+//                    'chat_id'   => $chat_id,
+//                    'message_id'    =>  $msg_id,
+//                    'text'  =>  "پیام ارسال شد.",
+//                    'remove_keyboard' => true
+//                ]);
 
                 $response = Telegram::bot($bot_name)->editMessageText([
                     'chat_id' => $chat_id,
@@ -205,12 +205,14 @@ class BotController extends Controller
 .',
 //                    'reply_to_message_id' => $reply_to_message_id,
                     'message_id'    =>  $msg_id,
+                    'remove_keyboard' => true
                 ]);
 
-//                Telegram::bot($bot_name)->sendMessage([
-//                    'chat_id' => $chat_id,
-//                    'text' => "message sent"
-//                ]);
+                Telegram::bot($bot_name)->sendMessage([
+                    'chat_id' => $chat_id,
+                    'text' => "message sent",
+                    'remove_keyboard' => true
+                ]);
 
                 break;
 
