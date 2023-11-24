@@ -81,7 +81,7 @@ class BotController extends Controller
         Telegram::bot($bot_name)->answerCallbackQuery([
             'callback_query_id' => $update->callbackQuery->id,
             'text' => 'How can I help you?',
-            'show_alert' => true,
+//            'show_alert' => true,
         ]);
 
 
