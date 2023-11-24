@@ -116,6 +116,20 @@ class BotController extends Controller
                 ]);
                 break;
             case 2:
+                session(['state' => 'reply', "step" => 3, "params" => $params]);
+                $params = session('params');
+                $keyboard = [['ارسال']];
+                $reply_markup = Keyboard::make([
+                    'keyboard' => $keyboard,
+                    'resize_keyboard' => true,
+                    'one_time_keyboard' => true
+                ]);
+                Telegram::bot($bot_name)->sendMessage([
+                    'chat_id' => $update->callbackQuery->message->chat->id,
+                    'text' => $params['from'] . '
+' . $update->callback_query->message->text,
+                    'reply_markup' => $reply_markup
+                ]);
                 break;
             default:
 
