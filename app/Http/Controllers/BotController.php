@@ -104,10 +104,10 @@ class BotController extends Controller
 
 
         $step = session("step");
+        $reply_to_message_id = session('reply_to_message_id');
         switch ($step) {
             case 1:
                 session(['step' => 2]);
-                $reply_to_message_id = session('reply_to_message_id');
                 $keyboard = [['لغو']];
                 $reply_markup = Keyboard::make([
                     'keyboard' => $keyboard,
@@ -138,7 +138,8 @@ class BotController extends Controller
                     'chat_id' => $chat_id,
                     'text' => $params['from'] . '
 ' . $params['text'],
-                    'reply_markup' => $reply_markup
+                    'reply_markup' => $reply_markup,
+                    'reply_to_message_id' => $reply_to_message_id
                 ]);
 
                 Log::info(json_encode([
@@ -188,6 +189,13 @@ class BotController extends Controller
                     'text'  =>  "پیام ارسال شد.",
                 ]);
 
+                $response = Telegram::bot($bot_name)->editMessageText([
+                    'chat_id' => $chat_id,
+                    'text' => 'پیام زیر از طرف شما به' . $params['from'] . ' ارسال شد. ' . '
+' . $params['text'],
+//                    'reply_to_message_id' => $reply_to_message_id,
+                    'message_id'    =>  $msg_id,
+                ]);
 
 //                Telegram::bot($bot_name)->sendMessage([
 //                    'chat_id' => $chat_id,
