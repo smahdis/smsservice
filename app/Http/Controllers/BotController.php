@@ -72,9 +72,9 @@ class BotController extends Controller
     {
         Log::info(
             json_encode([
-//                "update" => $update,
-                "session" => session(),
-                "session id" => session()->getId(),
+                "step" => session('step'),
+                "state" => session('state'),
+                "param" => session('params'),
 //                "callback id" =>  $update->callbackQuery->id
             ])
         );
@@ -149,26 +149,11 @@ class BotController extends Controller
             $params = json_decode($update->callbackQuery->data, true);
             $type = $params['type'];
             if($type === "reply_start") {
-                session('step', 1);
+                session(['step' => 1]);
                 session(['state' => 'reply', "params" => $params]);
-
-                Log::info(
-                    json_encode([
-                        "setting" => "done!!!"
-                    ])
-                );
             }
 
-            Log::info(
-                json_encode([
-                    "params" => $params,
-                    "type" => $type,
-                    "step" => session('step'),
-                    "state" => session('state'),
-                    "param" => session('params'),
-//                "callback id" =>  $update->callbackQuery->id
-                ])
-            );
+
             $this->handleReplyMessage($bot_name, $update->callbackQuery->message->chat->id);
 
             return 0;
