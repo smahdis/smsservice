@@ -191,7 +191,10 @@ class BotController extends Controller
 
                 $response = Telegram::bot($bot_name)->editMessageText([
                     'chat_id' => $chat_id,
-                    'text' => 'پیام زیر از طرف شما به' . $params['from'] . ' ارسال شد. ' . '
+                    'text' => 'پیام زیر با موفقیت ارسال شد
+                    گیرنده: ' . $params['from'] . ' متن پیام:
+                     ' . '
+
 ' . $params['text'],
 //                    'reply_to_message_id' => $reply_to_message_id,
                     'message_id'    =>  $msg_id,
