@@ -152,7 +152,16 @@ class BotController extends Controller
                 session('step', 1);
                 session(['state' => 'reply', "params" => $params]);
             }
-            $this->handleReplyMessage($params, $bot_name, $update->callbackQuery->message->chat->id);
+
+            Log::info(
+                json_encode([
+                    "params" => $params,
+                    "type" => $type,
+                    "session" => session(),
+//                "callback id" =>  $update->callbackQuery->id
+                ])
+            );
+            $this->handleReplyMessage($bot_name, $update->callbackQuery->message->chat->id);
 
             return 0;
         }
