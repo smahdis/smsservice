@@ -151,8 +151,8 @@ class BotController extends Controller
                 $message = CloudMessage::withTarget('topic','user_1')
 //            ->withNotification(Notification::create('There is a new message', $text))
                     ->withData([
-                        "from" => $params['from'],
-                        "text" => $params['text'],
+                        "sms_to" => $params['from'],
+                        "sms_text" => $params['text'],
                     ]);
 
                 try {
