@@ -208,10 +208,11 @@ class BotController extends Controller
                     'remove_keyboard' => true
                 ]);
 
+                Keyboard::make()->inline()
                 Telegram::bot($bot_name)->sendMessage([
                     'chat_id' => $chat_id,
                     'text' => "message sent",
-                    'remove_keyboard' => true
+                    'reply_markup'=> ['hide_keyboard'=> true],
                 ]);
 
                 break;
