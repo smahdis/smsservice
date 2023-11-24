@@ -36,16 +36,18 @@ class StartTelegramSession extends StartSession
             } else if ($update->getMessage()) {
                 $sessionName = $update->getMessage()->getFrom()->getId();
             }
+        }
+
+        if ($sessionName) {
 
             Log::info(json_encode([
                 "update->getCallbackQuery()" => $update->getCallbackQuery(),
                 "update->getMessage()" => $update->getMessage(),
                 "sessionName" => $sessionName,
-                "update->getMessage()->getFrom()" => $update->getMessage()->getFrom()
+                "update->getMessage()->getFrom()" => $update->getMessage()->getFrom(),
+                "$sessionName" => "set"
             ]));
-        }
 
-        if ($sessionName) {
             return tap($this->manager->driver(), function ($session) use ($sessionName) {
                 $session->setId(str_pad($sessionName, 40, "0", STR_PAD_LEFT));
             });
