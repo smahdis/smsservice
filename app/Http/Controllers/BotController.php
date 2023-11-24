@@ -163,7 +163,9 @@ class BotController extends Controller
                 json_encode([
                     "params" => $params,
                     "type" => $type,
-                    "session" => session(),
+                    "step" => session('step'),
+                    "state" => session('state'),
+                    "param" => session('params'),
 //                "callback id" =>  $update->callbackQuery->id
                 ])
             );
