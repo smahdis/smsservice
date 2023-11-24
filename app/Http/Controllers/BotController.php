@@ -143,6 +143,7 @@ class BotController extends Controller
                     "ersal messsage respomse" => $response
                 ]));
 
+
                 session('message_id', $response->getMessageId());
                 break;
 
@@ -173,11 +174,19 @@ class BotController extends Controller
                     ]));
                 }
 
+                $msg_id = session('message_id');
 
-                Telegram::bot($bot_name)->sendMessage([
-                    'chat_id' => $chat_id,
-                    'text' => "message sent"
+                Telegram::editMessageText([
+                    'chat_id'   => $chat_id,
+                    'message_id'    =>  $msg_id,
+                    'text'  =>  "پیام ارسال شد.",
                 ]);
+
+
+//                Telegram::bot($bot_name)->sendMessage([
+//                    'chat_id' => $chat_id,
+//                    'text' => "message sent"
+//                ]);
 
                 break;
 
