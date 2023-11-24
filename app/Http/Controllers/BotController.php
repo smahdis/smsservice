@@ -72,8 +72,9 @@ class BotController extends Controller
     {
         Log::info(
             json_encode([
-                "update" => $update,
-                "callback id" =>  $update->callbackQuery->id
+//                "update" => $update,
+                "session" => $request->session(),
+//                "callback id" =>  $update->callbackQuery->id
             ])
         );
 
@@ -112,6 +113,7 @@ class BotController extends Controller
      */
     public function callback(Request $request, $bot_name)
     {
+
         $update = Telegram::bot($bot_name)->commandsHandler(true);
 
         if($update->isType('callback_query')) {
