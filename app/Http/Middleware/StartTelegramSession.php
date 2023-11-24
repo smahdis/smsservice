@@ -31,12 +31,16 @@ class StartTelegramSession extends StartSession
         $update = $telegram->getWebhookUpdate();
         $sessionName = null;
         if ($update instanceof Update) {
-
             if ($update->getCallbackQuery()) {
                 $sessionName = $update->getCallbackQuery()->getFrom()->getId();
             } else if ($update->getMessage()) {
                 $sessionName = $update->getMessage()->getFrom()->getId();
             }
+
+            Log::info(json_encode([
+                "update->getCallbackQuery()" => $update->getCallbackQuery(),
+                "update->getMessage()" => $update->getMessage()
+            ]));
         }
 
         if ($sessionName) {
