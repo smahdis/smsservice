@@ -77,11 +77,16 @@ class BotController extends Controller
             ])
         );
 
+        $reply_markup = Telegram::replyKeyboardHide();
+
+
         // Normal message:
         Telegram::bot($bot_name)->sendMessage([
             'chat_id' => $update->callbackQuery->message->chat->id,
-            'text'    => 'What help you need?'
+            'text'    => 'What help you need?',
+            'reply_markup' => $reply_markup
         ]);
+
 
 //        Telegram::bot($bot_name)->answerCallbackQuery([
 //            'callback_query_id' => $update->callbackQuery->id,
