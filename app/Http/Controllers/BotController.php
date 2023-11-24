@@ -192,6 +192,8 @@ class BotController extends Controller
 //                    'remove_keyboard' => true
 //                ]);
 
+                $reply_markup = Keyboard::remove();
+
                 $response = Telegram::bot($bot_name)->editMessageText([
                     'chat_id' => $chat_id,
                     'text' => 'پیام زیر با موفقیت ارسال شد
@@ -205,15 +207,15 @@ class BotController extends Controller
 .',
 //                    'reply_to_message_id' => $reply_to_message_id,
                     'message_id'    =>  $msg_id,
-                    'remove_keyboard' => true
-                ]);
-
-                $reply_markup = Keyboard::remove();
-                Telegram::bot($bot_name)->sendMessage([
-                    'chat_id' => $chat_id,
-                    'text' => "message sent",
                     'reply_markup'=> $reply_markup,
                 ]);
+
+
+//                Telegram::bot($bot_name)->sendMessage([
+//                    'chat_id' => $chat_id,
+//                    'text' => "message sent",
+//                    'reply_markup'=> $reply_markup,
+//                ]);
 
                 break;
 
