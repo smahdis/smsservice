@@ -69,6 +69,12 @@ class BotController extends Controller
      * @throws TelegramSDKException
      */
     public function handleReplyMessage($request, $params, $bot_name, $update) {
+        Log::info(
+            json_encode([
+                "update" => $update,
+                "bot_name" => $bot_name
+            ])
+        );
         switch ($params['step']) {
             case 1:
                 Telegram::bot($bot_name)->answerCallbackQuery([
@@ -76,8 +82,9 @@ class BotController extends Controller
                     'text' => 'How can I help you?',
                     'show_alert' => true,
                 ]);;
+                break;
             case 2:
-                return 4;
+                break;
             default:
 
         }
