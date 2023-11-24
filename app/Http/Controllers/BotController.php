@@ -137,9 +137,9 @@ class BotController extends Controller
                 $response = Telegram::bot($bot_name)->sendMessage([
                     'chat_id' => $chat_id,
                     'text' => '
-                    گیرنده:
-                    ' .$params['from'] . '
-                    متن پیام:
+گیرنده:
+' .$params['from'] . '
+متن پیام:
 ' . $params['text'],
                     'reply_markup' => $reply_markup,
                     'reply_to_message_id' => $reply_to_message_id
