@@ -150,7 +150,7 @@ class BotController extends Controller
             $type = $params['type'];
             if($type === "reply_start") {
                 session(['step' => 1]);
-                $request->session()->put('state', 'reply123')
+                $request->session()->put('state', 'reply123');
                 session(['state' => 'reply', "params" => $params]);
             }
 
