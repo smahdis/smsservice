@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Telegram\Bot\Api;
 use Telegram\Bot\Objects\Update;
 
@@ -32,7 +34,15 @@ class StartTelegramSession extends StartSession
             if ($update->getMessage()) {
                 $sessionName = $update->getMessage()->getFrom()->getId();
             } else if ($update->getCallbackQuery()) {
-                $sessionName = $update->getCallbackQuery()->getChat()->getId();
+                $sessionName = $update->getCallbackQuery()->getFrom()->getId();
+
+                Log::info(
+                    json_encode([
+                        "update->getCallbackQuery()" => $update->getCallbackQuery(),
+                        "sessionName" => $sessionName,
+                    ])
+                );
+
             }
         }
 
