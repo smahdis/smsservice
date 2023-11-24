@@ -142,8 +142,8 @@ class BotController extends Controller
 
             case 3:
 
-//                session(['step' => 0]);
-//                session(['state' => ""]);
+                session(['step' => 0]);
+                session(['state' => ""]);
                 $params = session('params');
 
                 $factory = (new Factory);
