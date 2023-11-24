@@ -207,6 +207,8 @@ class BotController extends Controller
         $text = $request->all()['message']['text'];
         $user = User::where('chat_id',$chat_id)->first();
 
+        if(!empty($user))
+            Auth::loginUsingId($user->id);
         Log::info(
             json_encode([
                 "session id" => $request->session()->getId(),
