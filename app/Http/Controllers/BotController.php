@@ -278,6 +278,7 @@ class BotController extends Controller
                     'chat_id' => $chat_id,
                     'message_id'  => $msg_id,
                 ]);
+                return 0;
             }
             $params = session('params');
             $params["text"] = $text;
