@@ -77,7 +77,8 @@ class BotController extends Controller
                 "state" => session('state'),
                 "param" => session('params'),
                 "text" => session('text'),
-                "user" => $user
+                "user" => $user,
+                "reply_to_message_id" => session('reply_to_message_id')
 //                "callback id" =>  $update->callbackQuery->id
             ])
         );
@@ -106,6 +107,7 @@ class BotController extends Controller
         switch ($step) {
             case 1:
                 session(['step' => 2]);
+                $reply_to_message_id = session('reply_to_message_id');
                 $keyboard = [['لغو']];
                 $reply_markup = Keyboard::make([
                     'keyboard' => $keyboard,
@@ -115,7 +117,8 @@ class BotController extends Controller
                 Telegram::bot($bot_name)->sendMessage([
                     'chat_id' => $chat_id,
                     'text'    => 'لطفا پیام خود را بنویسید',
-                    'reply_markup' => $reply_markup
+                    'reply_markup' => $reply_markup,
+                    'reply_to_message_id' => $reply_to_message_id
                 ]);
                 break;
             case 2:
@@ -211,10 +214,11 @@ class BotController extends Controller
             $params = json_decode($update->callbackQuery->data, true);
             $type = $params['type'];
             if($type === "reply_start") {
-                session(['step' => 1]);
-                $request->session()->put('state', 'reply123');
+                session(['step' => 1, 'reply_to_message_id' => $update->callbackQuery->message->id]);
+                $request->session()->put('state', 'reply');
                 session(['state' => 'reply', "params" => $params]);
             }
+
 
 
             $this->handleReplyMessage($bot_name, $update->callbackQuery->message->chat->id);
