@@ -151,7 +151,7 @@ class BotController extends Controller
 ' . $params['text'] . '
 
 .',
-                    'reply_markup' => $reply_markup,
+//                    'reply_markup' => $reply_markup,
                     'reply_to_message_id' => $reply_to_message_id,
                     'message_id'    =>  $msg_id,
                 ]);
