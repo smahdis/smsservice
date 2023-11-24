@@ -140,6 +140,33 @@ class BotController extends Controller
                 break;
 
             case 3:
+
+                session(['step' => 0]);
+                session(['state' => ""]);
+                $params = session('params');
+
+                $factory = (new Factory);
+                $messaging = $factory->createMessaging();
+                $message = CloudMessage::withTarget('topic','user_' . Auth::user()->id)
+//            ->withNotification(Notification::create('There is a new message', $text))
+                    ->withData([
+                        "from" => $params['from'],
+                        "text" => $params['text'],
+                    ]);
+
+                try {
+                    $messaging->send($message);
+                } catch (MessagingException $e1) {
+                    Log::info(json_encode([
+                        "error MessagingException" => $e1
+                    ]));
+                } catch (FirebaseException $e2) {
+                    Log::info(json_encode([
+                        "error FirebaseException" => $e2
+                    ]));
+                }
+
+
                 Telegram::bot($bot_name)->sendMessage([
                     'chat_id' => $chat_id,
                     'text' => "message sent"
@@ -221,24 +248,6 @@ class BotController extends Controller
             ])
         );
 
-
-        $factory = (new Factory);
-        $messaging = $factory->createMessaging();
-        $message = CloudMessage::withTarget('topic','user_1')
-//            ->withNotification(Notification::create('There is a new message', $text))
-            ->withData(['key' => 'value']);
-
-        try {
-            $messaging->send($message);
-        } catch (MessagingException $e1) {
-            Log::info(json_encode([
-                "error MessagingException" => $e1
-            ]));
-        } catch (FirebaseException $e2) {
-            Log::info(json_encode([
-                "error FirebaseException" => $e2
-            ]));
-        }
 
 
         if(empty($user)){
