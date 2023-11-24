@@ -127,9 +127,8 @@ class BotController extends Controller
                     ->row([
                         Keyboard::inlineButton(['text' => 'ارسال', 'callback_data' => json_encode([
                             "type" => "reply_send",
-//                    "step" => "1",
-                            "from" => $params['from'],
-                            "text" => $params['text'],
+//                            "from" => $params['from'],
+//                            "text" => $params['text'],
                         ])])
                     ]);
                 $response = Telegram::bot($bot_name)->sendMessage([
