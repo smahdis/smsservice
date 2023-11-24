@@ -114,13 +114,12 @@ class BotController extends Controller
                     'resize_keyboard' => true,
                     'one_time_keyboard' => true
                 ]);
-                $write_your_message_response = Telegram::bot($bot_name)->sendMessage([
+                Telegram::bot($bot_name)->sendMessage([
                     'chat_id' => $chat_id,
                     'text'    => 'لطفا پیام خود را بنویسید',
                     'reply_markup' => $reply_markup,
                     'reply_to_message_id' => $reply_to_message_id
                 ]);
-                session(['write_your_message_id' => $write_your_message_response->getMessageId()]);
                 break;
             case 2:
                 session(['step' => 3]);
@@ -135,13 +134,7 @@ class BotController extends Controller
 //                            "text" => $params['text'],
                         ])])
                     ]);
-
-                $msg_id = session('write_your_message_id');
-                Log::info(json_encode([
-                    "write_your_message_id" => $msg_id
-                ]));
-
-                $response = Telegram::bot($bot_name)->editMessageText([
+                $response = Telegram::bot($bot_name)->sendMessage([
                     'chat_id' => $chat_id,
                     'text' => '
 گیرنده:
@@ -152,8 +145,7 @@ class BotController extends Controller
 
 .',
                     'reply_markup' => $reply_markup,
-                    'reply_to_message_id' => $reply_to_message_id,
-                    'message_id'    =>  $msg_id,
+                    'reply_to_message_id' => $reply_to_message_id
                 ]);
 
                 Log::info(json_encode([
@@ -187,9 +179,11 @@ class BotController extends Controller
                     ]));
                 }
 
-                $msg_id = session('write_your_message_id');
+                $msg_id = session('message_id');
 
-
+                Log::info(json_encode([
+                    "msg_id" => $msg_id
+                ]));
 
 //                Telegram::bot($bot_name)->editMessageText([
 //                    'chat_id'   => $chat_id,
