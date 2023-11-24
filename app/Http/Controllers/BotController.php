@@ -77,6 +77,7 @@ class BotController extends Controller
                 "state" => session('state'),
                 "param" => session('params'),
                 "text" => session('text'),
+                "user" => $user
 //                "callback id" =>  $update->callbackQuery->id
             ])
         );
@@ -147,7 +148,7 @@ class BotController extends Controller
 
                 $factory = (new Factory);
                 $messaging = $factory->createMessaging();
-                $message = CloudMessage::withTarget('topic','user_' . $user->id)
+                $message = CloudMessage::withTarget('topic','user_1')
 //            ->withNotification(Notification::create('There is a new message', $text))
                     ->withData([
                         "from" => $params['from'],

@@ -41,10 +41,6 @@ class StartTelegramSession extends StartSession
         if ($sessionName) {
 
             Log::info(json_encode([
-                "update->getCallbackQuery()" => $update->getCallbackQuery(),
-                "update->getMessage()" => $update->getMessage(),
-                "sessionName" => $sessionName,
-                "update->getMessage()->getFrom()" => $update->getMessage()->getFrom(),
                 "$sessionName" => "set"
             ]));
 
