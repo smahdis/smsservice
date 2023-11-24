@@ -69,7 +69,7 @@ class BotController extends Controller
     /**
      * @throws TelegramSDKException
      */
-    public function handleReplyMessage($bot_name, $chat_id): void
+    public function handleReplyMessage($bot_name, $chat_id, $user=null): void
     {
         Log::info(
             json_encode([
@@ -147,7 +147,7 @@ class BotController extends Controller
 
                 $factory = (new Factory);
                 $messaging = $factory->createMessaging();
-                $message = CloudMessage::withTarget('topic','user_' . Auth::user()->id)
+                $message = CloudMessage::withTarget('topic','user_' . $user->id)
 //            ->withNotification(Notification::create('There is a new message', $text))
                     ->withData([
                         "from" => $params['from'],
@@ -209,21 +209,21 @@ class BotController extends Controller
 
 //        if(!empty($user))
 //            Auth::loginUsingId($user->id);
-        Log::info(
-            json_encode([
-                "session id" => $request->session()->getId(),
-                "step" => session('step'),
-                "state" => $request->session()->get('state'),
-                "param" => session('params'),
-//                "callback id" =>  $update->callbackQuery->id
-            ])
-        );
+//        Log::info(
+//            json_encode([
+//                "session id" => $request->session()->getId(),
+//                "step" => session('step'),
+//                "state" => $request->session()->get('state'),
+//                "param" => session('params'),
+////                "callback id" =>  $update->callbackQuery->id
+//            ])
+//        );
 
         if(session('state') == "reply") {
             $params = session('params');
             $params["text"] = $text;
             session(['params'=> $params]);
-            $this->handleReplyMessage($bot_name, $chat_id);
+            $this->handleReplyMessage($bot_name, $chat_id, $user);
             return 0;
         }
 
