@@ -181,8 +181,23 @@ class BotController extends Controller
         $msg = $request->all()['message'];
         $from = $request->all()['from'];
 
+        $keyboard = [
+            ['Reply'],
+//            ['4', '5', '6'],
+//            ['1', '2', '3'],
+//            ['0']
+        ];
+//
+        $reply_markup = Keyboard::make()
+            ->inline()
+            ->row([
+                Keyboard::inlineButton(['text' => 'Reply', 'url' => 'https://google.com']),
+                Keyboard::inlineButton(['text' => 'Reply To message', 'callback_data' => 'callback_data_value'])
+            ]);
+
         $response = Telegram::bot('user_' . $request->user()->id)->sendMessage([
             'chat_id' => Auth::user()->chat_id,
+            'reply_markup' => $reply_markup,
             'text' => $from . '
 ' . $msg
         ]);
