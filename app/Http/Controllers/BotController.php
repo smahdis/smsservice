@@ -193,20 +193,20 @@ class BotController extends Controller
 //                ]);
 
                 $reply_markup = Keyboard::remove();
-//                $response = Telegram::bot($bot_name)->editMessageText([
-//                    'chat_id' => $chat_id,
-//                    'text' => '
-//گیرنده:
-//' . $params['from'] . '
-//متن پیام:
-//' . '
-//' . $params['text'] . '
-//
-//.',
-////                    'reply_to_message_id' => $reply_to_message_id,
-//                    'message_id'    =>  $msg_id,
-//                    'remove_keyboard' => true
-//                ]);
+                $response = Telegram::bot($bot_name)->editMessageText([
+                    'chat_id' => $chat_id,
+                    'text' => '
+گیرنده:
+' . $params['from'] . '
+متن پیام:
+' . '
+' . $params['text'] . '
+
+.',
+//                    'reply_to_message_id' => $reply_to_message_id,
+                    'message_id'    =>  $msg_id,
+                    'remove_keyboard' => true
+                ]);
 
 
                 Telegram::bot($bot_name)->sendMessage([
