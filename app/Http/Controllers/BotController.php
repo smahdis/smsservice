@@ -68,6 +68,24 @@ class BotController extends Controller
     /**
      * @throws TelegramSDKException
      */
+    public function handleReplyMessage($request, $params, $bot_name, $update) {
+        switch ($params['step']) {
+            case 1:
+                Telegram::bot($bot_name)->answerCallbackQuery([
+                    'callback_query_id' => $update->callbackQuery->id,
+                    'text' => 'How can I help you?',
+                    'show_alert' => true,
+                ]);;
+            case 2:
+                return 4;
+            default:
+
+        }
+    }
+
+    /**
+     * @throws TelegramSDKException
+     */
     public function callback(Request $request, $bot_name)
     {
         $update = Telegram::bot($bot_name)->commandsHandler(true);
@@ -76,13 +94,7 @@ class BotController extends Controller
 
             $json = json_decode($update->callbackQuery->data);
 
-            Log::info(
-                json_encode([
-                    "update" => $update,
-                    "json" => $json,
-                    "bot_name" => $bot_name
-                ])
-            );
+            $this->handleReplyMessage($request, $json, $bot_name, $update);
 
             return 0;
         }
