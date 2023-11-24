@@ -39,7 +39,9 @@ class StartTelegramSession extends StartSession
 
             Log::info(json_encode([
                 "update->getCallbackQuery()" => $update->getCallbackQuery(),
-                "update->getMessage()" => $update->getMessage()
+                "update->getMessage()" => $update->getMessage(),
+                "sessionName" => $sessionName,
+                "update->getMessage()->getFrom()" => $update->getMessage()->getFrom()
             ]));
         }
 
