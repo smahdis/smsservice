@@ -173,13 +173,9 @@ class BotController extends Controller
 
                 try {
                     $messaging->send($message);
-                } catch (MessagingException $e1) {
+                } catch (MessagingException|FirebaseException $e) {
                     Log::info(json_encode([
-                        "error MessagingException" => $e1
-                    ]));
-                } catch (FirebaseException $e2) {
-                    Log::info(json_encode([
-                        "error FirebaseException" => $e2
+                        "error FirebaseException" => $e
                     ]));
                 }
 
@@ -193,11 +189,13 @@ class BotController extends Controller
                     'chat_id'   => $chat_id,
                     'message_id'    =>  $msg_id,
                     'text'  =>  "پیام ارسال شد.",
+                    'remove_keyboard' => true
                 ]);
 
                 $response = Telegram::bot($bot_name)->editMessageText([
                     'chat_id' => $chat_id,
                     'text' => 'پیام زیر با موفقیت ارسال شد
+
 گیرنده:
 ' . $params['from'] . '
 متن پیام:
