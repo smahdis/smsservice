@@ -144,7 +144,7 @@ class BotController extends Controller
                 ]));
 
 
-                session('message_id', $response->getMessageId());
+                session(['message_id' => $response->getMessageId()]);
                 break;
 
             case 3:
