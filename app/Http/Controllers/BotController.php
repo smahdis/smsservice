@@ -150,6 +150,7 @@ class BotController extends Controller
             $type = $params['type'];
             if($type === "reply_start") {
                 session(['step' => 1]);
+                $request->session()->put('state', 'reply123')
                 session(['state' => 'reply', "params" => $params]);
             }
 
@@ -166,7 +167,7 @@ class BotController extends Controller
         Log::info(
             json_encode([
                 "step" => session('step'),
-                "state" => session('state'),
+                "state" => $request->session()->get('state'),
                 "param" => session('params'),
 //                "callback id" =>  $update->callbackQuery->id
             ])
@@ -177,6 +178,7 @@ class BotController extends Controller
             $params["text"] = $text;
             session('params', $params);
             $this->handleReplyMessage($bot_name, $chat_id);
+            return 0;
         }
 
 
