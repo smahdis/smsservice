@@ -163,6 +163,15 @@ class BotController extends Controller
         $text = $request->all()['message']['text'];
         $user = User::where('chat_id',$chat_id)->first();
 
+        Log::info(
+            json_encode([
+                "step" => session('step'),
+                "state" => session('state'),
+                "param" => session('params'),
+//                "callback id" =>  $update->callbackQuery->id
+            ])
+        );
+
         if(session('state') == "reply") {
             $params = session('params');
             $params["text"] = $text;
