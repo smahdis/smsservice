@@ -68,11 +68,11 @@ class BotController extends Controller
     /**
      * @throws TelegramSDKException
      */
-    public function handleReplyMessage($request, $params, $bot_name, $update): void
+    public function handleReplyMessage($bot_name, $chat_id): void
     {
         Log::info(
             json_encode([
-                "update" => $update,
+//                "update" => $update,
                 "session" => session(),
                 "session id" => session()->getId(),
 //                "callback id" =>  $update->callbackQuery->id
@@ -99,10 +99,10 @@ class BotController extends Controller
 //        ]);
 
 
-
-        switch ($params['step']) {
+        $step = session("step");
+        switch ($step) {
             case 1:
-                session(['state' => 'reply', "step" => 2, "params" => $params]);
+                session('step', 2);
                 $keyboard = [['لغو']];
                 $reply_markup = Keyboard::make([
                     'keyboard' => $keyboard,
@@ -110,13 +110,13 @@ class BotController extends Controller
                     'one_time_keyboard' => true
                 ]);
                 Telegram::bot($bot_name)->sendMessage([
-                    'chat_id' => $update->callbackQuery->message->chat->id,
+                    'chat_id' => $chat_id,
                     'text'    => 'لطفا پیام خود را بنویسید',
                     'reply_markup' => $reply_markup
                 ]);
                 break;
             case 2:
-                session(['state' => 'reply', "step" => 3, "params" => $params]);
+//                session(['state' => 'reply', "step" => 3, "params" => $params]);
                 $params = session('params');
                 $keyboard = [['ارسال']];
                 $reply_markup = Keyboard::make([
@@ -125,9 +125,9 @@ class BotController extends Controller
                     'one_time_keyboard' => true
                 ]);
                 Telegram::bot($bot_name)->sendMessage([
-                    'chat_id' => $update->callbackQuery->message->chat->id,
+                    'chat_id' => $chat_id,
                     'text' => $params['from'] . '
-' . $update->callback_query->message->text,
+' . $params['text'],
                     'reply_markup' => $reply_markup
                 ]);
                 break;
@@ -146,9 +146,13 @@ class BotController extends Controller
 
         if($update->isType('callback_query')) {
 
-            $json = json_decode($update->callbackQuery->data, true);
-
-            $this->handleReplyMessage($request, $json, $bot_name, $update);
+            $params = json_decode($update->callbackQuery->data, true);
+            $type = $params['type'];
+            if($type == "reply_start") {
+                session('step', 1);
+                session(['state' => 'reply', "params" => $params]);
+            }
+            $this->handleReplyMessage($params, $bot_name, $update->callbackQuery->message->chat->id);
 
             return 0;
         }
@@ -156,6 +160,15 @@ class BotController extends Controller
         $chat_id = $request->all()['message']['chat']['id'];
         $text = $request->all()['message']['text'];
         $user = User::where('chat_id',$chat_id)->first();
+
+        if(session('state') == "reply") {
+            $params = session('params');
+            $params["text"] = $text;
+            session('params', $params);
+            $this->handleReplyMessage($bot_name, $chat_id);
+        }
+
+
 
         if(!isset($bot_name)) {
             Log::info(
@@ -274,8 +287,8 @@ class BotController extends Controller
             ->inline()
             ->row([
                 Keyboard::inlineButton(['text' => 'Reply', 'callback_data' => json_encode([
-                    "type" => "reply",
-                    "step" => "1",
+                    "type" => "reply_start",
+//                    "step" => "1",
                     "from" => $from,
                 ])])
             ]);
@@ -294,21 +307,5 @@ class BotController extends Controller
         return $response;
     }
 
-    /**
-     * @throws TelegramSDKException
-     */
-    public function play(Request $request) {
-        $response = $this->telegram->getMe();
-
-        $response = $this->telegram->sendMessage([
-            'chat_id' => '118059084',
-            'text' => 'Hello World'
-        ]);
-
-        $messageId = $response->getMessageId();
-
-        var_dump($messageId);
-        die();
-    }
 
 }

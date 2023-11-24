@@ -17,6 +17,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/play',[\App\Http\Controllers\BotController::class, 'play']);
 Route::post('/callback/{bot_name?}',[\App\Http\Controllers\BotController::class, 'callback'])->middleware('telegram');
 
