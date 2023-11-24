@@ -72,7 +72,7 @@ class BotController extends Controller
         Log::info(
             json_encode([
                 "update" => $update,
-                "bot_name" => $bot_name
+                "callback id" =>  $update->callbackQuery->id
             ])
         );
         switch ($params['step']) {
