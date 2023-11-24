@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Kreait\Firebase\Exception\FirebaseException;
 use Kreait\Firebase\Exception\MessagingException;
 use Kreait\Firebase\Factory;
@@ -72,6 +73,8 @@ class BotController extends Controller
     {
         Log::info(
             json_encode([
+                "session id1" => Session::getId(),
+                "session id2" => session()->getId(),
                 "step" => session('step'),
                 "state" => session('state'),
                 "param" => session('params'),
@@ -166,6 +169,7 @@ class BotController extends Controller
 
         Log::info(
             json_encode([
+                "session id" => $request->session()->getId(),
                 "step" => session('step'),
                 "state" => $request->session()->get('state'),
                 "param" => session('params'),
