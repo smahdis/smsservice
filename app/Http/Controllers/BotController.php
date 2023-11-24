@@ -73,8 +73,6 @@ class BotController extends Controller
     {
         Log::info(
             json_encode([
-                "session id1" => Session::getId(),
-                "session id2" => session()->getId(),
                 "step" => session('step'),
                 "state" => session('state'),
                 "param" => session('params'),
@@ -105,7 +103,7 @@ class BotController extends Controller
         $step = session("step");
         switch ($step) {
             case 1:
-                session('step', 2);
+                session(['step' => 2]);
                 $keyboard = [['لغو']];
                 $reply_markup = Keyboard::make([
                     'keyboard' => $keyboard,
@@ -119,6 +117,7 @@ class BotController extends Controller
                 ]);
                 break;
             case 2:
+                session(['step' => 3]);
 //                session(['state' => 'reply', "step" => 3, "params" => $params]);
                 $params = session('params');
                 $keyboard = [['ارسال']];
