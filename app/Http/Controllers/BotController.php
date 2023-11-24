@@ -143,7 +143,7 @@ class BotController extends Controller
 
 ' . $params['text'] . '
 
-',
+.',
                     'reply_markup' => $reply_markup,
                     'reply_to_message_id' => $reply_to_message_id
                 ]);
@@ -198,11 +198,14 @@ class BotController extends Controller
                 $response = Telegram::bot($bot_name)->editMessageText([
                     'chat_id' => $chat_id,
                     'text' => 'پیام زیر با موفقیت ارسال شد
-                    گیرنده: ' . $params['from'] . '
-                     متن پیام:
+گیرنده:
+' . $params['from'] . '
+متن پیام:
                      ' . '
 
-' . $params['text'],
+' . $params['text'] . '
+
+.',
 //                    'reply_to_message_id' => $reply_to_message_id,
                     'message_id'    =>  $msg_id,
                 ]);
