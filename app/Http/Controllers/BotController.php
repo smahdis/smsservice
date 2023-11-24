@@ -137,6 +137,10 @@ class BotController extends Controller
                     ]);
 
                 $msg_id = session('write_your_message_id');
+                Log::info(json_encode([
+                    "write_your_message_id" => $msg_id
+                ]));
+
                 $response = Telegram::bot($bot_name)->editMessageText([
                     'chat_id' => $chat_id,
                     'text' => '
@@ -185,9 +189,7 @@ class BotController extends Controller
 
                 $msg_id = session('write_your_message_id');
 
-                Log::info(json_encode([
-                    "msg_id" => $msg_id
-                ]));
+
 
 //                Telegram::bot($bot_name)->editMessageText([
 //                    'chat_id'   => $chat_id,
