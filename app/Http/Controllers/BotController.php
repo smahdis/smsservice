@@ -232,9 +232,6 @@ class BotController extends Controller
     {
 
         $update = Telegram::bot($bot_name)->commandsHandler(true);
-        $chat_id = $request->all()['message']['chat']['id'];
-        $text = $request->all()['message']['text'];
-        $user = User::where('chat_id',$chat_id)->first();
 
         if($update->isType('callback_query')) {
 
@@ -252,12 +249,16 @@ class BotController extends Controller
                 session(['state' => 'reply', "params" => $params]);
             }
 
+            $user = User::where('chat_id',$update->callbackQuery->message->chat->id)->first();
+
             $this->handleReplyMessage($bot_name, $update->callbackQuery->message->chat->id, $user);
 
             return 0;
         }
 
-
+        $chat_id = $request->all()['message']['chat']['id'];
+        $text = $request->all()['message']['text'];
+        $user = User::where('chat_id',$chat_id)->first();
 
         Log::info(
             json_encode([
