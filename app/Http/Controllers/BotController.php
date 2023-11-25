@@ -260,6 +260,12 @@ class BotController extends Controller
         $text = $request->all()['message']['text'];
         $user = User::where('chat_id',$chat_id)->first();
 
+        Log::info(
+            json_encode([
+                "user" => $user,
+                "chat_id" => $chat_id,
+            ])
+        );
 //        if(!empty($user))
 //            Auth::loginUsingId($user->id);
 //        Log::info(
