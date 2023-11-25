@@ -78,6 +78,7 @@ class BotController extends Controller
                 "param" => session('params'),
                 "text" => session('text'),
                 "user" => $user,
+                "chat_id" => $chat_id,
                 "reply_to_message_id" => session('reply_to_message_id')
 //                "callback id" =>  $update->callbackQuery->id
             ])
