@@ -366,25 +366,36 @@ class BotController extends Controller
 //
 //        $t = Telegram::bot($bot_name);
 ////
-//        $keyboard = [
-//            ['Send Message'],
-////            ['4', '5', '6'],
-////            ['1', '2', '3'],
-////            ['0']
-//        ];
+        $keyboard = [
+            ['Send Message'],
+//            ['4', '5', '6'],
+//            ['1', '2', '3'],
+//            ['0']
+        ];
+
+        $inlineLayout = [
+            [
+                Keyboard::button([
+                    'text' => 'Contacts',
+                    'web_app' => [
+                        'url' => 'https://sms.tikoagency.ir/contacts'
+                    ]
+                ]),
+            ]
+        ];
+
+        $reply_markup = Keyboard::make([
+            'keyboard' => $inlineLayout,
+            'resize_keyboard' => true,
+            'one_time_keyboard' => true
+        ]);
 ////
-//        $reply_markup = Keyboard::make([
-//            'keyboard' => $keyboard,
-//            'resize_keyboard' => true,
-//            'one_time_keyboard' => true
-//        ]);
 ////
-////
-//        $response = Telegram::bot($bot_name)->sendMessage([
-//            'chat_id' => Auth::user()->chat_id,
-//            'text' => $t->getAccessToken() . " - ". $text . " " . $bot_name,
-//            'reply_markup' => $reply_markup
-//        ]);
+        $response = Telegram::bot($bot_name)->sendMessage([
+            'chat_id' => Auth::user()->chat_id,
+            'text' => $t->getAccessToken() . " - ". $text . " " . $bot_name,
+            'reply_markup' => $reply_markup
+        ]);
 //
 //        Log::info(
 //            json_encode([
