@@ -364,7 +364,7 @@ class BotController extends Controller
 //        Auth::loginUsingId($user->id);
 //
 //
-//        $t = Telegram::bot($bot_name);
+        $t = Telegram::bot($bot_name);
 ////
         $keyboard = [
             ['Send Message'],
@@ -393,7 +393,7 @@ class BotController extends Controller
 ////
         $response = Telegram::bot($bot_name)->sendMessage([
             'chat_id' => "118059084",
-            'text' => $t->getAccessToken() . " - ". $text . " " . $bot_name,
+            'text' => "hello there...!",
             'reply_markup' => $reply_markup
         ]);
 //
