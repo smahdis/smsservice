@@ -230,6 +230,8 @@ class BotController extends Controller
      */
     public function contacts(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
+//        var_dump("diing....");
+//        die();
         return view('contacts');
     }
 
