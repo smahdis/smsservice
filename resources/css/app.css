@@ -11,7 +11,17 @@ body{margin-top:20px;
 }
 
 .project-list-table tr {
-    background-color: #fff
+    background-color: #fbfafa
+}
+
+.project-list-table td {
+    background-color: unset !important;
+}
+
+.project-list-table tr:hover {
+    background-color: #fdeaea;
+    border-radius: 20px;
+    /*scale: 1.2;*/
 }
 
 .table-nowrap td, .table-nowrap th {
