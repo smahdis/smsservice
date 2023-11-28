@@ -228,6 +228,14 @@ class BotController extends Controller
     /**
      * @throws TelegramSDKException
      */
+    public function contacts(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('contacts');
+    }
+
+    /**
+     * @throws TelegramSDKException
+     */
     public function callback(Request $request, $bot_name)
     {
 
