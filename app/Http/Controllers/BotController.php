@@ -249,6 +249,12 @@ class BotController extends Controller
 
         if($update->isType('callback_query')) {
 
+            Log::info(
+                json_encode([
+                    "callback?" => $update->isType('callback_query')
+                ])
+            );
+
             $params = json_decode($update->callbackQuery->data, true);
             $type = $params['type'];
             if($type === "reply_start") {
