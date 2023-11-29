@@ -380,7 +380,7 @@ class BotController extends Controller
                 Keyboard::button([
                     'text' => 'Contacts',
                     'web_app' => [
-                        'url' => 'https://sms.tikoagency.ir/contacts'
+                        'url' => 'https://sms.tikoagency.ir/contacts/' . $chat_id
                     ]
                 ]),
             ]
@@ -394,7 +394,7 @@ class BotController extends Controller
 ////
 ////
         $response = Telegram::bot($bot_name)->sendMessage([
-            'chat_id' => "118059084",
+            'chat_id' => $chat_id,
             'text' => "hello there...!",
             'reply_markup' => $reply_markup
         ]);
