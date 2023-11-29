@@ -232,8 +232,8 @@ class BotController extends Controller
     public function contacts(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
 //        $contacts = Contact::where('user_id', )->get();
-        var_dump($request->all());
-        die();
+//        var_dump($request->all());
+//        die();
         return view('contacts');
     }
 
