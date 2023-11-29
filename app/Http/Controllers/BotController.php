@@ -229,11 +229,13 @@ class BotController extends Controller
     /**
      * @throws TelegramSDKException
      */
-    public function contacts(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function contacts(Request $request, $chat_id): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-//        $contacts = Contact::where('user_id', )->get();
-//        var_dump($request->all());
-//        die();
+        $user = User::where('chat_id', $chat_id)->first();
+        $contacts = Contact::where('user_id', $user->id)->get();
+        var_dump($user);
+        var_dump($contacts);
+        die();
         return view('contacts');
     }
 
