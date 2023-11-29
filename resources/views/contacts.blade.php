@@ -13,10 +13,10 @@
                         </thead>
                         <tbody>
                             @foreach($contacts as $contact)
-                                <tr onclick="myFunction({$contact->name})">
+                                <tr onclick="myFunction({{$contact->name}})">
                                     <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
                                              class="avatar-sm rounded-circle me-2"/>
-                                        {$contact->name}
+                                        {{$contact->name}}
                                     </td>
                                     <td><span class="badge badge-soft-success mb-0">{$contact->phone}</span></td>
                                 </tr>
