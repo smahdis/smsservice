@@ -232,7 +232,7 @@ class BotController extends Controller
     public function contacts(Request $request, $chat_id): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         $user = User::where('chat_id', $chat_id)->first();
-        $contacts = Contact::where('user_id', $user->id)->paginate(10);
+        $contacts = Contact::where('user_id', $user->id)->paginate(20);
 //        var_dump($user);
 //        var_dump($contacts);
 //        die();

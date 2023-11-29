@@ -88,3 +88,28 @@ a {
 .bg-soft-primary {
     background-color: rgba(59,118,225,.25)!important;
 }
+
+.profileImage {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    background: #512DA8;
+    font-size: 35px;
+    color: #fff;
+    text-align: center;
+    line-height: 150px;
+    margin: 20px 0;
+}
+
+
+.profile-image {
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 17px;
+    vertical-align: middle;
+    line-height: 33px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
