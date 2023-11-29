@@ -233,7 +233,7 @@ class BotController extends Controller
     {
         $user = User::where('chat_id', $chat_id)->first();
         $contacts = Contact::where('user_id', $user->id)->get();
-        var_dump($user);
+//        var_dump($user);
         var_dump($contacts);
         die();
         return view('contacts');
