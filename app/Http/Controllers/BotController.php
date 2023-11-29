@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -230,8 +231,9 @@ class BotController extends Controller
      */
     public function contacts(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-//        var_dump("diing....");
-//        die();
+//        $contacts = Contact::where('user_id', )->get();
+        var_dump($request);
+        die();
         return view('contacts');
     }
 

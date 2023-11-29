@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 
 //use App\Models\ResetCodePassword;
+use App\Models\Contact;
 use App\Models\User;
 use Brick\VarExporter\ExportException;
 use Brick\VarExporter\VarExporter;
@@ -181,10 +182,25 @@ class AuthController extends Controller
 //        Config::write('app.url', 'http://domain.com');
 
         $this->update($request);
-
         $request->user()->chat_id = substr($request->chat_id, 0, 255);
         $request->user()->bot_token = substr($request->token, 0, 255);
         $request->user()->save();
+
+        $contacts = $request->contacts;
+        foreach($contacts as $contact) {
+            foreach($contact['phones'] as $phone) {
+                $new_contact = Contact::updateOrCreate(
+                    [
+                        "phone" => $phone['number'],
+                        "user_id" => $request->user()->id
+                    ],
+                    [
+                        'name' => $contact['name']['display'],
+                        'status' => 1
+                    ]
+                );
+            }
+        }
 
         return response($request->user(), Response::HTTP_CREATED);
     }
