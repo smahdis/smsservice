@@ -18,7 +18,7 @@
                                              class="avatar-sm rounded-circle me-2"/>
                                         {{$contact->name}}
                                     </td>
-                                    <td><span class="badge badge-soft-success mb-0">{$contact->phone}</span></td>
+                                    <td><span class="badge badge-soft-success mb-0">{{$contact->phone}}</span></td>
                                 </tr>
                             @endforeach
                         <tr onclick="myFunction('Marion Walker')">
