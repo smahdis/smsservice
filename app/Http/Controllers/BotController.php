@@ -277,7 +277,7 @@ class BotController extends Controller
         }
 
         $chat_id = $request->all()['message']['chat']['id'];
-        $text = $request->all()['message']['text'];
+        $text = isset($request->all()['message']['text']) ? $request->all()['message']['text'] : "";
         $user = User::where('chat_id',$chat_id)->first();
 
         Log::info(
